@@ -34,7 +34,6 @@
       <Axis {width} {height} {margin} scale={xScale} position="bottom" />
       <Axis {width} {height} {margin} scale={yScale} position="left" />
 
-      <!-- <g transform={`translate(${0}, ${0})`}> -->
       <!-- clip path definition -->
       <defs>
         <clipPath id="clipPathId">
@@ -65,7 +64,6 @@
           />
         {/each}
       </g>
-      <!-- </g> -->
     </svg>
   {/if}
 </div>
@@ -74,10 +72,6 @@
   svg {
     background-color: rgb(247, 247, 237);
   }
-
-  /* #chart-content {
-    outline: 2px solid red;
-  } */
 
   .scatter-plot-div {
     border: 2px solid rebeccapurple;
