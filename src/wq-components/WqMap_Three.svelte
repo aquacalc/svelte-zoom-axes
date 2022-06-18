@@ -26,7 +26,7 @@
   $: yScale = scaleLinear().domain([0, 8]).range([height, 0]);
 </script>
 
-<h2>The WQ Map (Two: add axes)</h2>
+<h2>The WQ Map (Three: zoom & pan)</h2>
 
 <div class="scatter-plot-div" bind:clientWidth={svgWidth}>
   {#if svgWidth}
@@ -38,10 +38,7 @@
       <Axis {width} {height} {margin} scale={xScale} position="bottom" />
       <Axis {width} {height} {margin} scale={yScale} position="left" />
 
-      <g
-        id="chart-content"
-        transform={`translate(${margin.left}, ${margin.top})`}
-      >
+      <g id='chart-content' transform={`translate(${margin.left}, ${margin.top})`}>
         {#each dummyData as d}
           <circle
             cx={xScale(d.x)}
@@ -57,6 +54,7 @@
 </div>
 
 <style>
+
   svg {
     background-color: rgb(247, 247, 237);
   }
