@@ -6,14 +6,14 @@
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
 
   import { scaleLinear } from "d3-scale";
-
-  import dummyData from "./dummyData";
+  import dummyData from "./dummyData_Two";
+  import Axis from "./Axis.svelte";
 
   // ** -- Set Chart Dimensions -- ** //
   let svgWidth = 460;
   let svgHeight = 400;
 
-  let margin = { top: 10, right: 30, bottom: 30, left: 60 };
+  let margin = { top: 40, right: 30, bottom: 40, left: 60 };
 
   let width = svgWidth - margin.left - margin.right;
   let height = svgHeight - margin.top - margin.bottom;
@@ -26,31 +26,47 @@
   $: yScale = scaleLinear().domain([0, 8]).range([height, 0]);
 </script>
 
-<h2>The WQ Map (One)</h2>
+<h2>The WQ Map (Two)</h2>
 
-<div class="scatter-plot" bind:clientWidth={width}>
-  {#if width}
-    <svg {width} {height}>
-      {#each dummyData as d}
-        <circle
-          cx={xScale(d.Sepal_Length)}
-          cy={yScale(d.Petal_Length)}
-          r="8"
-          fill="#61a3a9"
-          opacity="0.5"
-        />
-      {/each}
+<div class="scatter-plot-div" bind:clientWidth={svgWidth}>
+  {#if svgWidth}
+    <svg
+      width={svgWidth}
+      height={svgHeight}
+      transform={`translate(${0}, ${0})`}
+    >
+      <Axis {width} {height} {margin} scale={xScale} position="bottom" />
+      <Axis {width} {height} {margin} scale={yScale} position="left" />
+
+      <g id='chart-content' transform={`translate(${margin.left}, ${margin.top})`}>
+        {#each dummyData as d}
+          <circle
+            cx={xScale(d.x)}
+            cy={yScale(d.y)}
+            r="8"
+            fill="#61a3a9"
+            opacity="0.5"
+          />
+        {/each}
+      </g>
     </svg>
   {/if}
 </div>
 
 <style>
-  .scatter-plot {
-    border: 1px solid rebeccapurple;
-  }
+
   svg {
     background-color: rgb(247, 247, 237);
   }
+
+  #chart-content {
+    outline: 2px solid red;
+  }
+
+  .scatter-plot-div {
+    border: 2px solid rebeccapurple;
+  }
+
   h2 {
     color: rebeccapurple;
   }
