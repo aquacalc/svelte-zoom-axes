@@ -6,6 +6,8 @@
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
 
   import { scaleLinear } from "d3-scale";
+  import { zoom } from "d3-zoom";
+
   import dummyData from "./dummyData_Two";
   import Axis from "./Axis.svelte";
 
@@ -24,6 +26,74 @@
 
   // Add Y axis
   $: yScale = scaleLinear().domain([0, 8]).range([height, 0]);
+
+  // ** -- ZOOM -- ** //
+  // Zoom behavior as reactive function in Svelte? //
+  // let zoom = zoom()
+  //     .scaleExtent([1, 5])
+  //     .extent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .translateExtent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .on("zoom", updateChart);
+
+  let testDblClick = (e) => {
+    console.log(`Proba...`, e);
+
+    zoom()
+      .scaleExtent([1, 5])
+      .extent([
+        [0, 0],
+        [width, height],
+      ])
+      .translateExtent([
+        [0, 0],
+        [width, height],
+      ])
+      .on("zoom", updateChart);
+  };
+
+  // $: {
+  //   console.log(`Evo!!`);
+
+  //   zoom()
+  //     .scaleExtent([1, 5])
+  //     .extent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .translateExtent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .on("zoom", updateChart);
+  // }
+
+  function updateChart() {
+    console.log(`UPDATE_CHART...`);
+    console.log(`event: `, e);
+  }
+
+  // Implement zoom behavior
+  // function updateChart() {
+  //   // recover the new scale
+  //   var newScaleX = d3.event.transform.rescaleX(xScale);
+  //   var newScaleY = d3.event.transform.rescaleY(yScale);
+
+  //   // update axes with these new boundaries
+  //   xAxis.call(d3.axisBottom(newScaleX));
+  //   yAxis.call(d3.axisLeft(newScaleY));
+
+  //   // update circle position
+  //   scatter
+  //     .selectAll("circle")
+  //     .attr("cx", (d) => newScaleX(d.Sepal_Length))
+  //     .attr("cy", (d) => newScaleY(d.Petal_Length));
+  // }
 </script>
 
 <h2>The WQ Map (Four: semantic zoom)</h2>
@@ -64,6 +134,17 @@
           />
         {/each}
       </g>
+
+      <!-- // This add an invisible rect on top of the chart area.
+  // This rect can recover pointer events: necessary to understand when the user zoom -->
+      <rect
+        id="invisible-rect"
+        {width}
+        {height}
+        pointer-events="all"
+        transform={`translate(${margin.left}, ${margin.top})`}
+        on:dblclick={testDblClick}
+      />
     </svg>
   {/if}
 </div>
@@ -79,6 +160,11 @@
 
   #my-clip-path {
     outline: 1px solid red;
+  }
+
+  #invisible-rect {
+    fill: #c8f4a743;
+    outline: 2px solid blue;
   }
 
   h2 {
