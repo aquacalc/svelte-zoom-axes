@@ -26,7 +26,7 @@
   $: yScale = scaleLinear().domain([0, 8]).range([height, 0]);
 </script>
 
-<h2>The WQ Map (Three: zoom & pan)</h2>
+<h2>The WQ Map (Three: clip, zoom, & pan)</h2>
 
 <div class="scatter-plot-div" bind:clientWidth={svgWidth}>
   {#if svgWidth}
@@ -35,6 +35,21 @@
       height={svgHeight}
       transform={`translate(${0}, ${0})`}
     >
+
+    <!-- clip path definition -->
+    <defs>
+      <clipPath id='clipPathId'>
+        <rect
+          id='clipRect'
+          x={margin.left}
+          y={margin.top}
+          width={width - 0}
+          height={height - 0}
+          fill='red'
+        />
+      </clipPath>
+    </defs>
+
       <Axis {width} {height} {margin} scale={xScale} position="bottom" />
       <Axis {width} {height} {margin} scale={yScale} position="left" />
 

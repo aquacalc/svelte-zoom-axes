@@ -2,6 +2,7 @@
   // Harness for WQ Map
   import WqMap_One from "./WqMap_One.svelte";
   import WqMap_Two from "./WqMap_Two.svelte";
+  import WqMap_Three from "./WqMap_Three.svelte";
 </script>
 
 <h3>Evo me!</h3>
@@ -9,7 +10,10 @@
 <!-- <WqMap_One /> -->
 
 <!-- Add axis components -->
-<WqMap_Two />
+<!-- <WqMap_Two /> -->
+
+<!-- Semantic Zoom (1st try) -->
+<WqMap_Three />
 
 <style>
   h3 {
