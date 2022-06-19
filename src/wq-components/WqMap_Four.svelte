@@ -4,7 +4,6 @@
   // and: https://d3-graph-gallery.com/graph/interactivity_zoom.html
   // ** my mod of latter...
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
-
   import { scaleLinear } from "d3-scale";
   import { zoom } from "d3-zoom";
 
@@ -41,9 +40,10 @@
   //     ])
   //     .on("zoom", updateChart);
 
-  let testDblClick = (e) => {
-    console.log(`Proba...`, e);
+  // let zoomIt = () => {
+  //   console.log(`Proba...`);
 
+  $: {
     zoom()
       .scaleExtent([1, 5])
       .extent([
@@ -55,7 +55,10 @@
         [width, height],
       ])
       .on("zoom", updateChart);
-  };
+
+    updateChart();
+  }
+  // };
 
   // $: {
   //   console.log(`Evo!!`);
@@ -75,7 +78,7 @@
 
   function updateChart() {
     console.log(`UPDATE_CHART...`);
-    console.log(`event: `, e);
+    // console.log(`event: `, e);
   }
 
   // Implement zoom behavior
@@ -97,6 +100,12 @@
 </script>
 
 <h2>The WQ Map (Four: semantic zoom)</h2>
+<p>
+  <em>see</em>:
+  <a href="https://stackoverflow.com/questions/57956581/svelte-and-d3-brush"
+    >https://stackoverflow.com/questions/57956581/svelte-and-d3-brush</a
+  >
+</p>
 
 <div class="scatter-plot-div" bind:clientWidth={svgWidth}>
   {#if svgWidth}
@@ -143,7 +152,6 @@
         {height}
         pointer-events="all"
         transform={`translate(${margin.left}, ${margin.top})`}
-        on:dblclick={testDblClick}
       />
     </svg>
   {/if}
@@ -169,5 +177,10 @@
 
   h2 {
     color: rebeccapurple;
+    margin-bottom: 0px;
+  }
+
+  small {
+    padding-bottom: 20px;
   }
 </style>
