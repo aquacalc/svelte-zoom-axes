@@ -1,6 +1,6 @@
 # svelte app
 
-Port existing WQ Map in a D3 React component to Svelte
+Port existing WQ Map (https://www.aquatoolbox.com/scroll-wqmap.html) from its D3-fueled React component to Svelte.
 
 - _see_: https://github.com/TomFevrier/svelte-d3-demo/blob/master/src/ScatterPlot.svelte
 - _and_: https://www.youtube.com/watch?v=vHHLLJA0b70&list=PL8bMgX1kyZThM1sbYCoWdTcpiYysJsSeu&index=2&t=4624s
