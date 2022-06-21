@@ -31,9 +31,9 @@
 <WqMap_Five dummyData={dummyData_Two} />
 
 <style>
-  h3 {
+  /* h3 {
     color: #ff3e00;
     font-size: 2em;
     font-weight: 100;
-  }
+  } */
 </style>

@@ -4,7 +4,7 @@
 	import { select, selectAll } from 'd3-selection';
 	import { axisBottom, axisLeft } from 'd3-axis';
 
-	export let width;
+	// export let width;
 	export let height;
 	export let margin;
 	export let position;

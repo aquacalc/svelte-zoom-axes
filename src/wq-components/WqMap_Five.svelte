@@ -113,14 +113,12 @@
   {#if svgWidth}
     <svg id="wq-svg" use:addInvizRect width={svgWidth} height={svgHeight}>
       <Axis
-        {width}
         {height}
         {margin}
         scale={newScaleX ? newScaleX : xScale}
         position="bottom"
       />
       <Axis
-        {width}
         {height}
         {margin}
         scale={newScaleY ? newScaleY : yScale}
