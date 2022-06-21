@@ -7,7 +7,7 @@
 
   import { scaleLinear } from "d3-scale";
 
-  import dummyData from "./dummyData";
+  export let dummyData;
 
   // ** -- Set Chart Dimensions -- ** //
   let svgWidth = 460;

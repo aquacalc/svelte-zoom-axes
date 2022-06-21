@@ -1,3 +1,5 @@
+// Two Iris objects + a few dummies
+// Only used in WqMap_One.svelte
 const myData = [
   {
     Petal_Length: "1.7",

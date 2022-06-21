@@ -4,10 +4,11 @@
   // and: https://d3-graph-gallery.com/graph/interactivity_zoom.html
   // ** my mod of latter...
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
+  import { select } from "d3-selection";
   import { scaleLinear } from "d3-scale";
   import { zoom } from "d3-zoom";
 
-  import dummyData from "./dummyData_Two";
+  export let dummyData;
   import Axis from "./Axis.svelte";
 
   // ** -- Set Chart Dimensions -- ** //
@@ -18,6 +19,10 @@
 
   let width = svgWidth - margin.left - margin.right;
   let height = svgHeight - margin.top - margin.bottom;
+
+  // Re-scaled x & y
+  let newScaleX;
+  let newScaleY;
 
   // Add X axis
   // [** NB **] ".clamp(true)" breaks the panning!!
@@ -43,21 +48,27 @@
   // let zoomIt = () => {
   //   console.log(`Proba...`);
 
-  $: {
-    zoom()
-      .scaleExtent([1, 5])
-      .extent([
-        [0, 0],
-        [width, height],
-      ])
-      .translateExtent([
-        [0, 0],
-        [width, height],
-      ])
-      .on("zoom", updateChart);
+  // $: {
+  //   console.log(`In reactive 'zoom behavior'...`);
+  //   zoom()
+  //     .scaleExtent([1, 5])
+  //     .extent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .translateExtent([
+  //       [0, 0],
+  //       [width, height],
+  //     ])
+  //     .on("zoom", updateChart);
 
-    updateChart();
-  }
+  //   // updateChart();
+  // }
+
+  // function updateChart({ transform }) {
+  //   console.log(`UP_DATE Chart...`);
+  // }
+
   // };
 
   // $: {
@@ -76,11 +87,6 @@
   //     .on("zoom", updateChart);
   // }
 
-  function updateChart() {
-    console.log(`UPDATE_CHART...`);
-    // console.log(`event: `, e);
-  }
-
   // Implement zoom behavior
   // function updateChart() {
   //   // recover the new scale
@@ -97,9 +103,71 @@
   //     .attr("cx", (d) => newScaleX(d.Sepal_Length))
   //     .attr("cy", (d) => newScaleY(d.Petal_Length));
   // }
+
+  function addInvizRect(node) {
+    // console.log(`UPDATE_CHART...`, node);
+    // console.log(`UPDATE_CHART... select('svg')`, select('svg'));
+
+    // Chain ".call(zoom)" to the 'invisible' <rect> ??
+    let invizRect = select("#wq-svg")._groups[0][0].lastChild;
+    // console.log(`UPDATE_CHART... select 'invisible' <rect>: `, invizRect);
+
+    select("#wq-svg")
+      .attr("id", "invisible-rect")
+      .append("rect")
+      .attr("pointer-events", "all")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`)
+      .style("fill", "skyblue")
+      .style("opacity", "0.35")
+      // .style("fill", "#f5f5dc73")
+      // .attr("fill", "none")
+      .style("outline", "1px solid blue")
+      .attr("width", width)
+      .attr("height", height)
+      .call(
+        zoom()
+          .scaleExtent([1, 5])
+          .extent([
+            [0, 0],
+            [width, height],
+          ])
+          .translateExtent([
+            [0, 0],
+            [width, height],
+          ])
+          .on("zoom", zoomed)
+      );
+
+    // Implement zoom behavior
+    function zoomed({ transform }) {
+      console.log(`Zoom Transform`, transform);
+
+      // recover the new scale
+      newScaleX = transform.rescaleX(xScale);
+      newScaleY = transform.rescaleY(yScale);
+
+        // update axes with these new boundaries
+        // xAxis.call(axisBottom(newScaleX));
+        // yAxis.call(axisLeft(newScaleY));
+    }
+
+    // node.onclick = () => alert("Evo!");
+    // node.style.fill = params;
+    // node.style.opacity = 0.2;
+    return {
+      // update(newParams) {
+      //   console.log(`Action update with `, newParams);
+      // },
+
+      destroy() {
+        console.log(`Ex-ter-min-ate!`, node);
+      },
+    };
+    // console.log(`event: `, e);
+  }
 </script>
 
-<h2>The WQ Map (Four: semantic zoom)</h2>
+<h2>The WQ Map (Four: Add Svelte Action, zoom & pan axes)</h2>
 <p>
   <em>see</em>:
   <a href="https://stackoverflow.com/questions/57956581/svelte-and-d3-brush"
@@ -109,9 +177,9 @@
 
 <div class="scatter-plot-div" bind:clientWidth={svgWidth}>
   {#if svgWidth}
-    <svg width={svgWidth} height={svgHeight}>
-      <Axis {width} {height} {margin} scale={xScale} position="bottom" />
-      <Axis {width} {height} {margin} scale={yScale} position="left" />
+    <svg id="wq-svg" width={svgWidth} height={svgHeight} use:addInvizRect>
+      <Axis {width} {height} {margin} scale={newScaleX ? newScaleX : xScale} position="bottom" />
+      <Axis {width} {height} {margin} scale={newScaleY ? newScaleY : yScale} position="left" />
 
       <!-- clip path definition -->
       <defs>
@@ -146,13 +214,13 @@
 
       <!-- // This add an invisible rect on top of the chart area.
   // This rect can recover pointer events: necessary to understand when the user zoom -->
-      <rect
+      <!-- <rect
         id="invisible-rect"
         {width}
         {height}
         pointer-events="all"
         transform={`translate(${margin.left}, ${margin.top})`}
-      />
+      /> -->
     </svg>
   {/if}
 </div>
@@ -170,17 +238,14 @@
     outline: 1px solid red;
   }
 
-  #invisible-rect {
+  /* #invisible-rect {
     fill: #c8f4a743;
     outline: 2px solid blue;
-  }
+  } */
 
   h2 {
     color: rebeccapurple;
     margin-bottom: 0px;
   }
 
-  small {
-    padding-bottom: 20px;
-  }
 </style>

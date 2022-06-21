@@ -1,3 +1,5 @@
+// Some dummy x & y data
+// Used in WqMap_Two - _Four.svelte
 const myData = [
   {
     x: "0.0",

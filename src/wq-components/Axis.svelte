@@ -1,4 +1,6 @@
 <script>
+	// see: Tom Février's https://github.com/TomFevrier/svelte-d3-demo/blob/master/src/ScatterPlot.svelte
+	
 	import { select, selectAll } from 'd3-selection';
 	import { axisBottom, axisLeft } from 'd3-axis';
 

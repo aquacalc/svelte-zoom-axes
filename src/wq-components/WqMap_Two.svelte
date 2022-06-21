@@ -6,7 +6,7 @@
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
 
   import { scaleLinear } from "d3-scale";
-  import dummyData from "./dummyData_Two";
+  export let dummyData;
   import Axis from "./Axis.svelte";
 
   // ** -- Set Chart Dimensions -- ** //
