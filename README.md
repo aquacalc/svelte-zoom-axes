@@ -43,5 +43,10 @@ Just recreate the svg with a few Iris data points as circles and D3 x- and y-sca
 - added axes -- à la Tom Février (a single axis component)
 - added clip path
 - added 'invisible' rect
-- -try- to capture zoom transform
-- no semantic rescale()-ing
+- captured zoom transform
+- got semantic rescale()-ing
+
+# WqMap_Five
+
+- all of above, but better approach??
+- a
