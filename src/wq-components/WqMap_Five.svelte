@@ -93,20 +93,18 @@
 <h3>Semantic zoom axes & data points</h3>
 <p>
   <em>original in React</em>:
-  <a 
+  <a
     href="https://www.aquatoolbox.com/scroll-wqmap.html"
-    target='_blank'
-    rel="noopener noreferrer"
-    >https://www.aquatoolbox.com/scroll-wqmap.html</a
+    target="_blank"
+    rel="noopener noreferrer">https://www.aquatoolbox.com/scroll-wqmap.html</a
   >
 </p>
 <p>
   <em>see</em>:
-  <a 
+  <a
     href="https://svelte.dev/tutorial/actions"
     target="_blank"
-    rel='noopener noreferrer'
-    >https://svelte.dev/tutorial/actions</a
+    rel="noopener noreferrer">https://svelte.dev/tutorial/actions</a
   >
 </p>
 
@@ -146,23 +144,24 @@
         clip-path="url(#clipPathId)"
         transform={`translate(${margin.left}, ${margin.top})`}
       >
-
-      <!-- "test" pH isopleth -->
-      <line 
-        x1={newScaleX ? newScaleX(1.0) : xScale(1.0)} 
-        y1={newScaleY ? newScaleY(1.0) : yScale(1.0)} 
-        x2={newScaleX ? newScaleX(4.0) : xScale(4.0)} 
-        y2={newScaleY ? newScaleY(1.5) : yScale(1.5)} 
-        stroke='blue'
-      />
-      <line 
-        x1={newScaleX ? newScaleX(1.0) : xScale(1.0)} 
-        y1={newScaleY ? newScaleY(1.0) : yScale(1.0)} 
-        x2={newScaleX ? newScaleX(2.75) : xScale(2.75)} 
-        y2={newScaleY ? newScaleY(7.5) : yScale(7.5)} 
-        stroke='rebeccapurple'
-        stroke-width='3'
-      />
+        <!-- "test" pH isopleth -->
+        <line
+          x1={newScaleX ? newScaleX(1.0) : xScale(1.0)}
+          y1={newScaleY ? newScaleY(1.0) : yScale(1.0)}
+          x2={newScaleX ? newScaleX(4.0) : xScale(4.0)}
+          y2={newScaleY ? newScaleY(1.5) : yScale(1.5)}
+          stroke="blue"
+          stroke-linecap="round"
+        />
+        <line
+          x1={newScaleX ? newScaleX(1.0) : xScale(1.0)}
+          y1={newScaleY ? newScaleY(1.0) : yScale(1.0)}
+          x2={newScaleX ? newScaleX(2.75) : xScale(2.75)}
+          y2={newScaleY ? newScaleY(7.5) : yScale(7.5)}
+          stroke="rebeccapurple"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
 
         {#each dummyData as d}
           <circle
@@ -196,7 +195,8 @@
     outline: 1px solid red;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     color: rebeccapurple;
     margin: 0px;
   }

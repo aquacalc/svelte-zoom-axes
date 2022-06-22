@@ -21,12 +21,12 @@
 
 		switch(position) {
 			case 'bottom':
-				axis = axisBottom(scale).tickSizeOuter(0);
+				axis = axisBottom(scale).tickSizeOuter(0).ticks(7);
 				transform = `translate(${margin.left}, ${height + margin.top})`;
 				break;
 
 			case 'left':
-				axis = axisLeft(scale).tickSizeOuter(0);
+				axis = axisLeft(scale).tickSizeOuter(0).ticks(7);
 				transform = `translate(${margin.left}, ${margin.top})`;
 		}
 
