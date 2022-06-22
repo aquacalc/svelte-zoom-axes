@@ -89,7 +89,7 @@
   };
 </script>
 
-<h2>The WQ Map</h2>
+<h2 class='tab-callout'>The WQ Map</h2>
 <h3>Semantic zoom axes & data points</h3>
 <p>
   <em>original in React</em>:
@@ -200,6 +200,16 @@
     color: rebeccapurple;
     margin: 0px;
   }
+  
+  h2.tab-callout::before {
+  content: "for...";
+  border-top: 2px solid #ff3e00;
+  border-left: 2px solid #ff3e00;
+  padding: 4px;
+  border-top-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: rgb(229, 241, 252);
+}
 
   p {
     margin: 8px;
