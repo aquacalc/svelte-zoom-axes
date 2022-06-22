@@ -7,7 +7,7 @@
   // /Users/nickstaresinic/Documents/Documents/Udemy Courses/Svelte/html-zoom/html-zoom-axes/script-modified.js
   import { select } from "d3-selection";
   import { scaleLinear } from "d3-scale";
-  import { zoom } from "d3-zoom";
+  import { zoom, zoomIdentity } from "d3-zoom";
 
   export let dummyData;
   import Axis from "./Axis.svelte";
@@ -48,6 +48,7 @@
       .style("outline", "1px solid blue")
       .attr("width", width)
       .attr("height", height)
+      // .call(zoom.transform, zoomIdentity.translate(0,0).scale(2.5))
       .call(
         zoom()
           .scaleExtent([1, 5])
@@ -61,6 +62,9 @@
           ])
           .on("zoom", zoomed)
       );
+    // see @nero: https://stackoverflow.com/questions/16178366/d3-js-set-initial-zoom-level
+    // .append("g")
+    // .attr('transform', `translate(${0}, ${0})scale(${2.5})`)
 
     // Implement zoom behavior
     function zoomed({ transform }) {
@@ -89,7 +93,7 @@
   };
 </script>
 
-<h2 class='tab-callout'>The WQ Map</h2>
+<h2 class="tab-callout"><span>The WQ Map</span></h2>
 <h3>Semantic zoom axes & data points</h3>
 <p>
   <em>original in React</em>:
@@ -198,18 +202,37 @@
   h2,
   h3 {
     color: rebeccapurple;
-    margin: 0px;
+    margin: 6px;
   }
-  
+
+  h2 span {
+    padding: 4px;
+    background-color: rgb(229, 241, 252);
+  }
+
   h2.tab-callout::before {
-  content: "for...";
-  border-top: 2px solid #ff3e00;
-  border-left: 2px solid #ff3e00;
-  padding: 4px;
-  border-top-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  background-color: rgb(229, 241, 252);
-}
+    content: "";
+    border-top: 2px solid #ff3e00;
+    border-bottom: 2px solid #ff3e00;
+    border-left: 2px solid #ff3e00;
+    padding: 4px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background-color: rgb(229, 241, 252);
+    padding-right: 0.5rem;
+  }
+
+  h2.tab-callout::after {
+    content: "";
+    border-top: 2px solid #ff3e00;
+    border-bottom: 2px solid #ff3e00;
+    border-right: 2px solid #ff3e00;
+    padding: 4px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: rgb(229, 241, 252);
+    padding-left: 0.5rem;
+  }
 
   p {
     margin: 8px;
