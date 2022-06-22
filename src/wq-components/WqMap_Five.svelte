@@ -34,7 +34,7 @@
 
   // Svelte acion attached to svg
   const addInvizRect = (node) => {
-    // console.log(`UPDATE_CHART...`, node);
+    console.log(`Create addInvizRect...`, node);
 
     select("#wq-svg")
       .attr("id", "invisible-rect")
@@ -91,6 +91,9 @@
       },
     };
   };
+
+  // Test Svelte action properly destroyed
+  let showSvg = true;
 </script>
 
 <h2 class="tab-callout"><span>The WQ Map</span></h2>
@@ -112,20 +115,34 @@
   >
 </p>
 
+<label for="showSvg">
+<input type="checkbox" bind:checked={showSvg} name="showSvg" id="showSvg" />
+  Show/Hide Svg (confirm addInvizRect's destroy())
+</label>
+
 <div class="scatter-plot-div" bind:clientWidth={svgWidth}>
-  {#if svgWidth}
+  {#if svgWidth && showSvg}
     <svg id="wq-svg" use:addInvizRect width={svgWidth} height={svgHeight}>
       <Axis
         {height}
+        {width}
         {margin}
         scale={newScaleX ? newScaleX : xScale}
         position="bottom"
       />
       <Axis
         {height}
+        {width}
         {margin}
         scale={newScaleY ? newScaleY : yScale}
         position="left"
+      />
+      <Axis
+        {height}
+        {width}
+        {margin}
+        scale={newScaleY ? newScaleY : yScale}
+        position="right"
       />
 
       <!-- clip path definition -->
@@ -148,6 +165,12 @@
         clip-path="url(#clipPathId)"
         transform={`translate(${margin.left}, ${margin.top})`}
       >
+        <!-- <text
+        x={xScale(2)}
+        y={yScale(3)}
+      >
+        Yadda: {xScale(2)} ({newScaleX ? newScaleX(2) : xScale(2)})
+      </text> -->
         <!-- "test" pH isopleth -->
         <line
           x1={newScaleX ? newScaleX(1.0) : xScale(1.0)}
@@ -161,7 +184,7 @@
           x1={newScaleX ? newScaleX(1.0) : xScale(1.0)}
           y1={newScaleY ? newScaleY(1.0) : yScale(1.0)}
           x2={newScaleX ? newScaleX(2.75) : xScale(2.75)}
-          y2={newScaleY ? newScaleY(7.5) : yScale(7.5)}
+          y2={newScaleY ? newScaleY(9.5) : yScale(9.5)}
           stroke="rebeccapurple"
           stroke-width="3"
           stroke-linecap="round"
@@ -207,7 +230,7 @@
 
   h2 span {
     padding: 4px;
-    background-color: rgb(229, 241, 252);
+    /* background-color: rgb(229, 241, 252); */
   }
 
   h2.tab-callout::before {
@@ -218,7 +241,7 @@
     padding: 4px;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    background-color: rgb(229, 241, 252);
+    /* background-color: rgb(229, 241, 252); */
     padding-right: 0.5rem;
   }
 
@@ -230,7 +253,7 @@
     padding: 4px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    background-color: rgb(229, 241, 252);
+    /* background-color: rgb(229, 241, 252); */
     padding-left: 0.5rem;
   }
 
